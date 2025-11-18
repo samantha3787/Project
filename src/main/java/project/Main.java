@@ -30,7 +30,7 @@ public class Main {
 
             ParkingViolationData parkingData = loader.getParkingData();
             PropertyData propertyData = loader.getPropertyData();
-            // PopulationData populationData = loader.getPopulationData(); // later
+            PopulationData populationData = loader.getPopulationData();
 
             // 3) for now just show that things loaded
             // later call processor / UI code
@@ -38,7 +38,7 @@ public class Main {
                     + parkingData.getViolations().size());
             System.out.println("Loaded properties: "
                     + propertyData.getProperties().size());
-            // System.out.println("Total population: " + populationData.getTotalPopulation());
+            System.out.println("Total population: " + populationData.getTotalPopulationSum());
 
             // TODO create UI tier and main menu then pass data objects into it
 
