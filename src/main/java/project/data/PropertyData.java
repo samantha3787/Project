@@ -67,7 +67,7 @@ public class PropertyData {
 
     private int findIndex(String[] array, String target) {
         for(int i=0; i< array.length; i++) {
-            if(target.equals(array.[i].trim())) {
+            if(target.equals(array[i].trim())) {
                 return i;
             }
         }
