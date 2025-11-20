@@ -92,5 +92,10 @@ public class PopulationData {
         return sum;
     }
 
+    public long getTotalPopulationSum(String zipCode) {
+
+    }
+
+
 
 }
