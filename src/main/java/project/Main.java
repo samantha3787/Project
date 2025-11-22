@@ -38,7 +38,7 @@ public class Main {
                     + parkingData.getViolations().size());
             System.out.println("Loaded properties: "
                     + propertyData.getProperties().size());
-            System.out.println("Total population: " + populationData.getTotalPopulationSum());
+            System.out.println("Total population: " + populationData.getTotalPopulation());
 
             // TODO create UI tier and main menu then pass data objects into it
 

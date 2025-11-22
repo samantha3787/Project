@@ -84,7 +84,7 @@ public class PopulationData {
         return populationByZipCode;
     }
 
-    public long getTotalPopulationSum() {
+    public long getTotalPopulation() {
         long sum = 0L;
         for(int val : populationByZipCode.values()) {
             sum += val;
@@ -92,9 +92,6 @@ public class PopulationData {
         return sum;
     }
 
-    public long getTotalPopulationSum(String zipCode) {
-
-    }
 
 
 
