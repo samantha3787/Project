@@ -3,7 +3,7 @@ package project;
 import project.data.DataLoader;
 import project.data.ParkingViolationData;
 import project.data.PropertyData;
-import project.data.PopulationData; //update later
+import project.data.PopulationData;
 
 import java.io.IOException;
 
@@ -13,8 +13,9 @@ public class Main {
 
         // 1) check runtime arguments
         if (args.length != 4) {
-            System.out.println("Usage: java project.Main <csv|json> "
-                    + "<parking-file> <properties-file> <population-file>");
+            System.out.println("The number of run-time arguments is incorrect. " +
+                    "You must provide parking violations file format, parking violations file name, " +
+                    "property values file name, and population file name.");
             return;
         }
 

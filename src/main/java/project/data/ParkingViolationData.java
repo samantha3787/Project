@@ -36,20 +36,26 @@ public class ParkingViolationData {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if (line.trim().isEmpty()) continue;
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
 
                 String[] parts = line.split(",", -1);
-                if (parts.length < 7) continue; // malformed line
+                if (parts.length < 7) {
+                    continue;
+                }
 
                 String timestamp = parts[0];
-                Integer fine = parseIntSafe(parts[1]);
+                Integer fine = parseInteger(parts[1]);
                 String description = parts[2];
                 String vehicleId = parts[3];
                 String state = parts[4];
                 String violationId = parts[5];
                 String zip = processZipCode(parts[6]);
 
-                if (fine == null) continue; // bad record, so skip
+                if (fine == null) {
+                    continue;
+                }
 
                 addViolation(new ParkingViolation(
                         timestamp, fine, description, vehicleId, state, violationId, zip));
@@ -58,16 +64,24 @@ public class ParkingViolationData {
     }
 
     private void readJson(String filename) throws IOException {
-        JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(filename)) {
-            Object root = parser.parse(reader);
+            Object root = new JSONParser().parse(reader);
+            if (!(root instanceof JSONArray)) {
+                throw new IOException();
+            }
             JSONArray array = (JSONArray) root;
+
             for (Object o : array) {
+                if(!(o instanceof JSONObject)) {
+                    throw new IOException();
+                }
                 JSONObject obj = (JSONObject) o;
 
                 String timestamp = (String) obj.get("date");
                 Number fineNumber = (Number) obj.get("fine");
-                if (fineNumber == null) continue;
+                if (fineNumber == null) {
+                    continue;
+                }
                 int fine = fineNumber.intValue();
 
                 String description = (String) obj.get("violation");
@@ -92,10 +106,16 @@ public class ParkingViolationData {
         }
     }
 
-    private Integer parseIntSafe(String s) {
-        if (s == null) return null;
+    private Integer parseInteger(String s) {
+        if (s == null) {
+            return null;
+        }
+
         s = s.trim();
-        if (s.isEmpty()) return null;
+        if (s.isEmpty()) {
+            return null;
+        }
+
         try {
             double d = Double.parseDouble(s);
             return (int) Math.round(d);
@@ -105,20 +125,27 @@ public class ParkingViolationData {
     }
 
     private String processZipCode(String zip) {
-        if (zip == null) return null;
+        if (zip == null) {
+            return null;
+        }
         zip = zip.trim();
-        if (zip.isEmpty()) return null;
+        if (zip.isEmpty()) {
+            return null;
+        }
         return zip.length() >= 5 ? zip.substring(0, 5) : zip;
     }
 
     public List<ParkingViolation> getViolations() {
-        return Collections.unmodifiableList(violations);
+        return violations;
     }
 
     public List<ParkingViolation> getViolationsByZip(String zip) {
-        if (zip == null || zip.isEmpty()) return Collections.emptyList();
+        if (zip == null || zip.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         List<ParkingViolation> list = violationsByZip.get(zip);
-        return list == null ? Collections.emptyList() : Collections.unmodifiableList(list);
+        return list == null ? Collections.emptyList() : list;
     }
 }
 
