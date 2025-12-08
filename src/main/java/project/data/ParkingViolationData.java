@@ -188,7 +188,7 @@ public class ParkingViolationData implements Iterable<ParkingViolation> {
                 return "PA".equals(v.getState()) && v.getZipCode() != null && !v.getZipCode().isEmpty();
             }
 
-        }
+        };
 
     }
 
