@@ -4,21 +4,15 @@ import project.common.Property;
 import project.data.PopulationData;
 import java.util.List;
 
-public class MenuOptionFive {
+public class MenuOptionThree {
 
     private final PropertyData propertyData;
-    private final PopulationData populationData;
 
-    public MenuOptionFive(PropertyData propertyData, PopulationData populationData) {
+    public MenuOptionThree(PropertyData propertyData, PopulationData populationData) {
         this.propertyData = propertyData;
-        this.populationData = populationData;
     }
 
-    public int findResidentalMarketValuePerCapita(String zip) {
-        int pop = populationData.getPopulation(zip);
-        if (pop == 0) {
-            return 0;
-        }
+    public int findAverageResidentalMarketValue(String zip) {
 
         List<Property> list = propertyData.getPropertiesByZipCode(zip);
 
@@ -46,7 +40,7 @@ public class MenuOptionFive {
             return 0;
         }
 
-        double avg = (double) sum / pop;
+        double avg = (double) sum / count;
         return (int) Math.round(avg);
     }
 
