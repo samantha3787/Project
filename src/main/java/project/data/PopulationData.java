@@ -85,11 +85,9 @@ public class PopulationData {
     }
 
     public long getTotalPopulation() {
-        long sum = 0L;
-        for(int val : populationByZipCode.values()) {
-            sum += val;
-        }
-        return sum;
+        return populationByZipCode.values().stream()
+                                            .mapToLong(v -> v)
+                                            .reduce(0L, (a,b) -> a+b);
     }
 
 
