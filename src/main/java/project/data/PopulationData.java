@@ -90,7 +90,4 @@ public class PopulationData {
                                             .reduce(0L, (a,b) -> a+b);
     }
 
-
-
-
 }

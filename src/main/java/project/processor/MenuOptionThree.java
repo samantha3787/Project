@@ -3,16 +3,23 @@ import project.data.PropertyData;
 import project.common.Property;
 import project.data.PopulationData;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class MenuOptionThree {
 
     private final PropertyData propertyData;
+    private final Map<String, Integer> memoMap = new HashMap<>();
 
     public MenuOptionThree(PropertyData propertyData, PopulationData populationData) {
         this.propertyData = propertyData;
     }
 
     public int findAverageResidentalMarketValue(String zip) {
+
+        if(memoMap.containsKey(zip)) {
+            return memoMap.get(zip);
+        }
 
         List<Property> list = propertyData.getPropertiesByZipCode(zip);
 
@@ -41,7 +48,9 @@ public class MenuOptionThree {
         }
 
         double avg = (double) sum / count;
-        return (int) Math.round(avg);
+        int result = (int) Math.round(avg);
+        memoMap.put(zip, result);
+        return result;
     }
 
 
