@@ -7,6 +7,9 @@ public class MenuOptionOne {
     private final PopulationData data;
 
     public MenuOptionOne(PopulationData data) {
+        if(data == null) {
+            throw new IllegalArgumentException("Population data cannot be null.");
+        }
         this.data = data;
     }
 

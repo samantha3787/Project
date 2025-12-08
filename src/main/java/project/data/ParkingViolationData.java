@@ -20,12 +20,18 @@ public class ParkingViolationData implements Iterable<ParkingViolation> {
     }
 
     public static ParkingViolationData fromCsvFile(String filename) throws IOException {
+        if(filename == null || filename.trim().isEmpty()) {
+            throw new IllegalArgumentException("CSV parking file name cannot be null or empty.");
+        }
         ParkingViolationData data = new ParkingViolationData();
         data.readCsv(filename);
         return data;
     }
 
     public static ParkingViolationData fromJsonFile(String filename) throws IOException {
+        if(filename == null || filename.trim().isEmpty()) {
+            throw new IllegalArgumentException("JSON parking file name cannot be null or empty.");
+        }
         ParkingViolationData data = new ParkingViolationData();
         data.readJson(filename);
         return data;
@@ -67,13 +73,13 @@ public class ParkingViolationData implements Iterable<ParkingViolation> {
         try (FileReader reader = new FileReader(filename)) {
             Object root = new JSONParser().parse(reader);
             if (!(root instanceof JSONArray)) {
-                throw new IOException();
+                throw new IOException("Invalid JSONArray");
             }
             JSONArray array = (JSONArray) root;
 
             for (Object o : array) {
                 if(!(o instanceof JSONObject)) {
-                    throw new IOException();
+                    throw new IOException("Invalid JSONObject");
                 }
                 JSONObject obj = (JSONObject) o;
 
@@ -93,7 +99,7 @@ public class ParkingViolationData implements Iterable<ParkingViolation> {
                 addViolation(new ParkingViolation(
                         timestamp, fine, description, vehicleId, state, violationId, zip));
             }
-        } catch (ParseException e) {
+        } catch (org.json.simple.parser.ParseException e) {
             throw new IOException("Invalid JSON in parking file: " + filename, e);
         }
     }

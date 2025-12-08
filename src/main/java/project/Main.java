@@ -11,7 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // 1) check runtime arguments
         if (args.length != 4) {
             System.out.println("The number of run-time arguments is incorrect. " +
                     "You must provide parking violations file format, parking violations file name, " +

@@ -16,12 +16,25 @@ public class DataLoader {
                       String propertyFile,
                       String populationFile) throws IOException {
 
-        /*
-        arg0 = csv or json
-        arg1 = parking.csv or parking.json
-        arg2 = properties.csv
-        arg3 = population.txt
-         */
+        if(parkingFormat == null || parkingFile == null || propertyFile == null || populationFile == null) {
+            throw new IllegalArgumentException("File format and names cannot be null.");
+        }
+
+        File parking = new File(parkingFile);
+        File property = new File(propertyFile);
+        File population = new File(populationFile);
+
+        if(!parking.isFile()) {
+            throw new IOException("Parking file not found.");
+        }
+
+        if(!property.isFile()) {
+            throw new IOException("Property file not found.");
+        }
+
+        if(!population.isFile()) {
+            throw new IOException("Population file not found.");
+        }
 
         if ("csv".equals(parkingFormat)) {
             this.parkingData = ParkingViolationData.fromCsvFile(parkingFile);
