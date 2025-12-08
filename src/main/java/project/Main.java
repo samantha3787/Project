@@ -25,28 +25,21 @@ public class Main {
         String populationFile = args[3];
 
         try {
-            // 2) load all data in one place
-            DataLoader loader = new DataLoader(
-                    parkingFormat, parkingFile, propertyFile, populationFile);
-
-            ParkingViolationData parkingData = loader.getParkingData();
-            PropertyData propertyData = loader.getPropertyData();
-            PopulationData populationData = loader.getPopulationData();
-
-            // 3) for now just show that things loaded
-            // later call processor / UI code
-            System.out.println("Loaded parking violations: "
-                    + parkingData.getViolations().size());
-            System.out.println("Loaded properties: "
-                    + propertyData.getProperties().size());
-            System.out.println("Total population: " + populationData.getTotalPopulation());
-
-            // TODO create UI tier and main menu then pass data objects into it
-
+            DataLoader.initialize(parkingFormat, parkingFile, propertyFile, populationFile);
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
+            return;
         } catch (IOException e) {
             System.out.println("Error reading input files: " + e.getMessage());
+            return;
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
+
+        DataLoader loader = DataLoader.getInstance();
+
+        ParkingViolationData parkingData = loader.getParkingData();
+        PropertyData propertyData = loader.getPropertyData();
+        PopulationData populationData = loader.getPopulationData();
     }
 }
