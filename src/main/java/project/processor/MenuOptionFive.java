@@ -26,9 +26,28 @@ public class MenuOptionFive {
             return 0;
         }
 
+        int sum = 0;
+        int count = 0;
 
+        for (Property p : list) {
+            if (p == null) {
+                continue;
+            }
+            int value = p.getMarketValue();
+            if (value <= 0) {
+                continue;
+            }
 
+            sum += value;
+            count++;
+        }
 
+        if (count == 0) {
+            return 0;
+        }
+
+        double avg = (double) sum / count;
+        return (int) Math.round(avg);
     }
 
 
