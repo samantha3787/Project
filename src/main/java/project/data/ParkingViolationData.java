@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class ParkingViolationData {
+public class ParkingViolationData implements Iterable<ParkingViolation> {
 
     private final List<ParkingViolation> violations = new ArrayList<>();
     private final Map<String, List<ParkingViolation>> violationsByZip = new HashMap<>();
@@ -147,6 +147,52 @@ public class ParkingViolationData {
         List<ParkingViolation> list = violationsByZip.get(zip);
         return list == null ? Collections.emptyList() : list;
     }
+
+    @Override
+    public Iterator<ParkingViolation> iterator() {
+        return violations.iterator();
+    }
+
+    public Iterable<ParkingViolation> paViolationsWithZipIterator() {
+        return () -> new Iterator<ParkingViolation>() {
+            private int index = 0;
+            private ParkingViolation nextViolation = null;
+
+            @Override
+            public boolean hasNext() {
+                if(nextViolation != null) {
+                    return true;
+                }
+                while(index < violations.size()) {
+                    ParkingViolation v = violations.get(index);
+                    index++;
+                    if(isValid(v)) {
+                        nextViolation = v;
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public ParkingViolation next() {
+                if(!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                ParkingViolation v = nextViolation;
+                nextViolation = null;
+                return v;
+            }
+
+            private boolean isValid(ParkingViolation v) {
+                return "PA".equals(v.getState()) && v.getZipCode() != null && !v.getZipCode().isEmpty();
+            }
+
+        }
+
+    }
+
+
 }
 
 
