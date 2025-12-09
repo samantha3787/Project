@@ -39,7 +39,7 @@ public class MenuOptionTwo {
 
         for(Map.Entry<String, Long> entry : finesByZipcode.entrySet()) {
             String zip = entry.getKey();
-            Long fine = entry.getValue();
+            long fine = entry.getValue();
 
             int pop = populationData.getPopulation(zip);
             if(fine <= 0L || pop <= 0L) {

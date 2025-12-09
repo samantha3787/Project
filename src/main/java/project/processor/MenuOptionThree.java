@@ -29,7 +29,7 @@ public class MenuOptionThree {
             return 0;
         }
 
-        int sum = 0L;
+        long sum = 0L;
         int count = 0;
 
         for (Property p : list) {
