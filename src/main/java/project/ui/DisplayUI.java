@@ -61,6 +61,7 @@ public class DisplayUI {
                     break;
                 case 0:
                     exitProgram();
+                    break;
                 default:
                     System.out.println("Error in choosing option.");
             }

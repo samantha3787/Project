@@ -21,7 +21,7 @@ public class MenuOptionFour {
             return 0;
         }
 
-        int sum = 0;
+        int sum = 0L;
         int count = 0;
 
         for (Property p : list) {
@@ -34,14 +34,14 @@ public class MenuOptionFour {
                 continue;
             }
 
-            sum += area;
+            sum += (long) area;
             count++;
         }
 
-        if (count == 0) {
+        if (count == 0 || sum == 0L) {
             return 0;
         }
-        double avg = (double) sum / count;
+        double avg = (double) sum / (double) count;
         return (int) Math.round(avg);
     }
 

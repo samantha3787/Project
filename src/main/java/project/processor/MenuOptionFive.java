@@ -19,7 +19,7 @@ public class MenuOptionFive {
 
     public int findResidentialMarketValuePerCapita(String zip) {
         int pop = populationData.getPopulation(zip);
-        if (pop == 0) {
+        if (pop <= 0) {
             return 0;
         }
 
@@ -29,7 +29,7 @@ public class MenuOptionFive {
             return 0;
         }
 
-        int sum = 0;
+        long sum = 0L;
         int count = 0;
 
         for (Property p : list) {
@@ -41,15 +41,16 @@ public class MenuOptionFive {
                 continue;
             }
 
-            sum += value;
+            sum += (long) value;
             count++;
         }
 
-        if (count == 0) {
+        if (count == 0 || sum == 0L) {
             return 0;
         }
 
-        double avg = (double) sum / pop;
+        double avg = (double) sum / (double) pop;
+
         return (int) Math.round(avg);
     }
 

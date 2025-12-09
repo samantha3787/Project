@@ -29,7 +29,7 @@ public class MenuOptionThree {
             return 0;
         }
 
-        int sum = 0;
+        int sum = 0L;
         int count = 0;
 
         for (Property p : list) {
@@ -41,15 +41,15 @@ public class MenuOptionThree {
                 continue;
             }
 
-            sum += value;
+            sum += (long) value;
             count++;
         }
 
-        if (count == 0) {
+        if (count == 0 || sum == 0L) {
             return 0;
         }
 
-        double avg = (double) sum / count;
+        double avg = (double) sum / (double) count;
         int result = (int) Math.round(avg);
         memoMap.put(zip, result);
         return result;
