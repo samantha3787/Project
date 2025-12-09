@@ -45,14 +45,14 @@ public class PropertyData {
                 String pureTotalLivableArea = lineArray[totalLivableAreaIndex];
 
                 String zipCode = processZipCode(pureZipCode);
-                Integer marketValue = parseInt(pureMarketValue);
-                Integer totalLivableArea = parseInt(pureTotalLivableArea);
+                Integer marketValueInt = parseInt(pureMarketValue);
+                Integer areaInt        = parseInt(pureTotalLivableArea);
 
-                if(marketValue == null || totalLivableArea == null) {
-                    continue;
-                }
+                int marketValue      = (marketValueInt == null) ? 0 : marketValueInt;
+                int totalLivableArea = (areaInt == null) ? 0 : areaInt;
 
                 Property property = new Property(zipCode, marketValue, totalLivableArea);
+
                 properties.add(property);
 
                 if(zipCode != null) {
