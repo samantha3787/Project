@@ -159,7 +159,7 @@ public class ParkingViolationData implements Iterable<ParkingViolation> {
         return violations.iterator();
     }
 
-    public Iterable<ParkingViolation> paViolationsWithZipIterator() {
+    public Iterable<ParkingViolation> paViolationsWithZipIterable() {
         return () -> new Iterator<ParkingViolation>() {
             private int index = 0;
             private ParkingViolation nextViolation = null;
