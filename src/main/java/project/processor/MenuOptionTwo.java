@@ -29,7 +29,7 @@ public class MenuOptionTwo {
 
             Long current = finesByZipcode.get(zip);
             if(current == null) {
-                current = 0;
+                current = 0L;
             }
             current += fine;
             finesByZipcode.put(zip, current);
