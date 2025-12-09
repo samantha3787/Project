@@ -45,8 +45,12 @@ public class PropertyData {
                 String pureTotalLivableArea = lineArray[totalLivableAreaIndex];
 
                 String zipCode = processZipCode(pureZipCode);
-                int marketValue = Integer.parseInt(pureMarketValue);
-                int totalLivableArea = Integer.parseInt(pureTotalLivableArea);
+                int marketValue = parseInt(pureMarketValue);
+                int totalLivableArea = parseInt(pureTotalLivableArea);
+
+                if(marketValue == null || totalLivableArea == null) {
+                    continue;
+                }
 
                 Property property = new Property(zipCode, marketValue, totalLivableArea);
                 properties.add(property);
@@ -104,6 +108,23 @@ public class PropertyData {
         }
 
         return list;
+    }
+
+    private Integer parseInt(String s) {
+        if(s==null){
+            return null;
+        }
+        s = s.trim();
+        if(s.isEmpty()) {
+            return null;
+        }
+
+        try {
+            double d = Double.parseDouble(s);
+            return (int) Math.round(d);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
 }
