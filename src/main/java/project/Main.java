@@ -5,6 +5,14 @@ import project.data.ParkingViolationData;
 import project.data.PropertyData;
 import project.data.PopulationData;
 
+import project.processor.MenuOptionOne;
+import project.processor.MenuOptionTwo;
+import project.processor.MenuOptionThree;
+import project.processor.MenuOptionFour;
+import project.processor.MenuOptionFive;
+
+import project.ui.DisplayUI;
+
 import java.io.IOException;
 
 public class Main {
@@ -40,5 +48,14 @@ public class Main {
         ParkingViolationData parkingData = loader.getParkingData();
         PropertyData propertyData = loader.getPropertyData();
         PopulationData populationData = loader.getPopulationData();
+
+        MenuOptionOne optionOne = new MenuOptionOne(populationData);
+        MenuOptionTwo optionTwo = new MenuOptionTwo(parkingData, populationData);
+        MenuOptionThree optionThree = new MenuOptionThree(propertyData);
+        MenuOptionFour optionFour = new MenuOptionFour(propertyData);
+        MenuOptionFive optionFive = new MenuOptionFive(propertyData, populationData);
+
+        DisplayUI ui = new DisplayUI(optionOne, optionTwo, optionThree, optionFour, optionFive);
+        ui.begin();
     }
 }

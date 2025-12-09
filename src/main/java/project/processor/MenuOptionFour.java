@@ -9,6 +9,9 @@ public class MenuOptionFour {
     private final PropertyData data;
 
     public MenuOptionFour(PropertyData data) {
+        if(data == null) {
+            throw new IllegalArgumentException("Property data cannot be null.");
+        }
         this.data = data;
     }
 

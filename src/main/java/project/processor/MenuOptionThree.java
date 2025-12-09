@@ -1,7 +1,6 @@
 package project.processor;
 import project.data.PropertyData;
 import project.common.Property;
-import project.data.PopulationData;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -11,7 +10,10 @@ public class MenuOptionThree {
     private final PropertyData propertyData;
     private final Map<String, Integer> memoMap = new HashMap<>();
 
-    public MenuOptionThree(PropertyData propertyData, PopulationData populationData) {
+    public MenuOptionThree(PropertyData propertyData) {
+        if(propertyData == null) {
+            throw new IllegalArgumentException("Property data cannot be null.");
+        }
         this.propertyData = propertyData;
     }
 

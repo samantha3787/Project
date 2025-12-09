@@ -10,11 +10,14 @@ public class MenuOptionFive {
     private final PopulationData populationData;
 
     public MenuOptionFive(PropertyData propertyData, PopulationData populationData) {
+        if(propertyData == null || populationData == null) {
+            throw new IllegalArgumentException("Property data and population data cannot be null.");
+        }
         this.propertyData = propertyData;
         this.populationData = populationData;
     }
 
-    public int findResidentalMarketValuePerCapita(String zip) {
+    public int findResidentialMarketValuePerCapita(String zip) {
         int pop = populationData.getPopulation(zip);
         if (pop == 0) {
             return 0;
