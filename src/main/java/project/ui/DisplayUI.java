@@ -6,7 +6,11 @@ import project.processor.MenuOptionThree;
 import project.processor.MenuOptionFour;
 import project.processor.MenuOptionFive;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class DisplayUI {
 
@@ -131,6 +135,21 @@ public class DisplayUI {
     }
 
     private void doOptionTwo() {
+        Map<String, Double> map = optionTwo.findFinesPerCapita();
+
+        if(map.isEmpty()) {
+            System.out.println("Cannot obtain fines per capita data.");
+            return;
+        }
+
+        List<String> zipcodes = new ArrayList<>(map.keySet());
+        Collections.sort(zipcodes);
+
+        for(String zip : zipcodes) {
+            double num = map.get(zip);
+            String result = String.format("%.4f", num);
+            System.out.println(zip + " " + result);
+        }
 
     }
 
