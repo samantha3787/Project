@@ -41,12 +41,11 @@ public class DataLoader {
         } else if ("json".equals(parkingFormat)) {
             this.parkingData = ParkingViolationData.fromJsonFile(parkingFile);
         } else {
-            throw new IllegalArgumentException(
-                    "First argument must be \"csv\" or \"json\"; got: " + parkingFormat);
+            throw new IllegalArgumentException("Invalid parking data has been provided.");
         }
 
         this.propertyData = new PropertyData(propertyFile);
-        this.populationData = new PopulationData(populationFile); // uses population.txt
+        this.populationData = new PopulationData(populationFile);
     }
 
     public static void initialize(String parkingFormat,

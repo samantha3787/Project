@@ -89,21 +89,6 @@ public class PropertyData {
         }
     }
 
-    private Integer parsePositiveIntOrNull(String s) {
-        if (s == null) return null;
-        s = s.trim();
-        if (s.isEmpty()) return null;
-        try {
-            double asDouble = Double.parseDouble(s);
-            if (asDouble <= 0) return null;
-            // data often has ".0", so round to nearest int
-            int value = (int) Math.round(asDouble);
-            return value > 0 ? value : null;
-        } catch (NumberFormatException e) {
-            return null; //"dog", etc...
-        }
-    }
-
     public List<Property> getProperties() {
         return properties;
     }
