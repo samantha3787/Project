@@ -5,18 +5,36 @@ import java.io.IOException;
 
 public class DataLoader {
 
+    public enum ParkingFormat {
+        CSV, JSON;
+
+        public static ParkingFormat convertString(String s) {
+            if(s == null) {
+                throw new IllegalArgumentException("Parking format should not be null.");
+            }
+            switch(s.toLowerCase()) {
+                case "csv":
+                    return CSV;
+                case "json":
+                    return JSON;
+                default:
+                    throw new IllegalArgumentException("Invalid parking data format has been provided.");
+            }
+        }
+    }
+
     private static DataLoader instance;
 
     private final ParkingViolationData parkingData;
     private final PropertyData propertyData;
     private final PopulationData populationData;
 
-    private DataLoader(String parkingFormat,
+    private DataLoader(String parkingFormatName,
                       String parkingFile,
                       String propertyFile,
                       String populationFile) throws IOException {
 
-        if(parkingFormat == null || parkingFile == null || propertyFile == null || populationFile == null) {
+        if(parkingFormatName == null || parkingFile == null || propertyFile == null || populationFile == null) {
             throw new IllegalArgumentException("File format and names cannot be null.");
         }
 
@@ -36,12 +54,12 @@ public class DataLoader {
             throw new IOException("Population file not found.");
         }
 
-        if ("csv".equals(parkingFormat)) {
+        ParkingFormat parkingFormat = ParkingFormat.convertString(parkingFormatName);
+
+        if (parkingFormat == ParkingFormat.CSV) {
             this.parkingData = ParkingViolationData.fromCsvFile(parkingFile);
-        } else if ("json".equals(parkingFormat)) {
-            this.parkingData = ParkingViolationData.fromJsonFile(parkingFile);
         } else {
-            throw new IllegalArgumentException("Invalid parking data has been provided.");
+            this.parkingData = ParkingViolationData.fromJsonFile(parkingFile);
         }
 
         this.propertyData = new PropertyData(propertyFile);
